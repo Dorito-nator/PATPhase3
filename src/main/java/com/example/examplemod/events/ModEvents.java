@@ -17,7 +17,7 @@ public class ModEvents {
     @Mod.EventBusSubscriber(modid = AnxietyMod.MODID)
     public static class ForgeEvents{
         public static int anxLvl = 0;
-        public static int maxAnxLvl = 100;
+        public static int maxAnxLvl = 10;
 
         @SubscribeEvent
         public static void PlayerRespawnEvent(PlayerEvent.PlayerRespawnEvent event){
@@ -29,7 +29,7 @@ public class ModEvents {
         public static void onlivingHurt(LivingHurtEvent event){
             Minecraft minecraft = Minecraft.getInstance();
             if(anxLvl < maxAnxLvl){
-                anxLvl = anxLvl + 10;
+                anxLvl = anxLvl + 1;
                 minecraft.player.displayClientMessage(Component.nullToEmpty("You're hurt"),true);
                 Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Anxiety level is now: " + anxLvl));
 
@@ -48,7 +48,7 @@ public class ModEvents {
                 int currentFood = player.getFoodData().getFoodLevel();
                 if (currentFood < 6) {
                     if(anxLvl < maxAnxLvl){
-                        anxLvl = anxLvl + 10;
+                        anxLvl = anxLvl + 1;
                         minecraft.player.displayClientMessage(Component.nullToEmpty("Your Hunger makes you anxious"),true);
                         Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Anxiety level is now: " + anxLvl));
 
@@ -59,9 +59,9 @@ public class ModEvents {
             }
 
             long timeOfDay = event.player.level().getDayTime() % 24000;
-            if(timeOfDay >= 13000 && timeOfDay <= 23000){
+            if(timeOfDay == 13000){
                 if(anxLvl < maxAnxLvl){
-                    anxLvl = anxLvl + 10;
+                    anxLvl = anxLvl + 1;
                     minecraft.player.displayClientMessage(Component.nullToEmpty("Its dark out, beware of threats"),true);
                 }else{
                     AnxietyAttack(minecraft.player);
