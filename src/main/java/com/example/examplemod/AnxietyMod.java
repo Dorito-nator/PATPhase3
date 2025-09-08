@@ -1,5 +1,6 @@
 package com.example.examplemod;
 
+import com.example.examplemod.HUD.AnxHudOverlay;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 
 
@@ -23,7 +25,13 @@ public final class AnxietyMod {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public AnxietyMod() {
+    public AnxietyMod(FMLJavaModLoadingContext fmlctx) {
+        /*
+        if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
+            AnxHudOverlay.init(fmlctx.getModBusGroup());
+            fmlctx.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
+        }
+         */
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -48,4 +56,5 @@ public final class AnxietyMod {
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
+
 }
